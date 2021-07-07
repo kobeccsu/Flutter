@@ -15,28 +15,54 @@ class _MyAppState extends State<MyApp> {
   final _questions = [
     {
       'questionText': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red', 'Green', 'White'],
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Green', 'score': 3},
+        {'text': 'White', 'score': 1},
+      ],
     },
     {
       'questionText': 'What\'s your favorite anminal?',
-      'answers': ['Rabbit', 'Lion', 'Duck', 'Chicken'],
+      'answers': [
+        {'text': 'Rabbit', 'score': 10},
+        {'text': 'Lion', 'score': 5},
+        {'text': 'Duck', 'score': 2},
+        {'text': 'Chicken', 'score': 1}
+      ],
     },
     {
       'questionText': 'Who\'s your favorite super star?',
-      'answers': ['Max', 'Kobe', 'Dunk', 'Geogre'],
+      'answers': [
+        {'text': 'Max', 'score': 1},
+        {'text': 'Kobe', 'score': 1},
+        {'text': 'Dunk', 'score': 1},
+        {'text': 'Geogre', 'score': 1}
+      ],
     },
   ];
 
-  void _answerQustion() {
+  var _totalScore = 0;
+
+  void _answerQustion(int score) {
     if (_questionIndex < _questions.length) {
       print('we have questions');
     }
+
+    _totalScore += score;
 
     setState(() {
       _questionIndex++;
     });
 
     print(_questionIndex);
+  }
+
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
   }
 
   @override
@@ -52,7 +78,7 @@ class _MyAppState extends State<MyApp> {
                 questionIndex: _questionIndex,
                 answerQuestion: _answerQustion,
               )
-            : Result(),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
